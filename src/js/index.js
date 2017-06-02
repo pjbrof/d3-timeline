@@ -1,5 +1,3 @@
-var d3 = require('d3');
-
 // JSON structure TODO - accept xlxs/csv
 var jobhistory = {
 	"timeline": "one",
@@ -8,29 +6,34 @@ var jobhistory = {
 			"job": "Brophy Analytics",
 			"description": "I started Brophy Analytics LLC during my senior year of college when I was frequently being asked to help friends and family with websites. I currently still own and opporate the company in my spare time.",
 			"logo": "http://brophyanalytics.com/images/logo.png",
+      "color": "#000000",
 			"startDate": "2012-08",
 			"endDate": "present"
 		},
 		{
 			"job": "University of Dayton",
+      "color": "#D52728",
 			"startDate": "2010-08",
 			"endDate": "2015-06"
 		},
 		{
 			"job": "i4a",
 			"logo": "http://patrickbrophy.info/img/portfolio/i4a.png",
+      "color": "#6699CC",
 			"startDate": "2012-05",
 			"endDate": "2015-06"
 		},
 		{
 			"job": "Mountain Gap Solutions",
 			"logo": "http://patrickbrophy.info/img/portfolio/jjilllogo.png",
+      "color": "#325664",
 			"startDate": "2015-01",
 			"endDate": "2015-06"
 		},
 		{
 			"job": "J.Jill",
 			"logo": "http://patrickbrophy.info/img/portfolio/jjilllogo.png",
+      "color": "#8E8E8E",
 			"startDate": "2015-06",
 			"endDate": "2015-09"
 		},
@@ -38,29 +41,31 @@ var jobhistory = {
 			"job": "John Hancock",
 			"description": "From working on the Boston Marathon to the full site redesign I've been busy as John Hancock's lead developer",
 			"logo": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/358807/jh-logo-lg.jpg",
+      "color": "#063E68",
 			"startDate": "2015-08",
 			"endDate": "present"
 		},
 		{
 			"job": "Biogen",
+      "color": "#6A9F54",
 			"startDate": "2016-08",
 			"endDate": "present"
 		}
 	]
 };
 
-// random colors
-var colors = ['#00E5FF', '#34DEE9', '#EED86D', '#F28F3E', '#EF354D'];
+var initialWidth = 960;
+var initialHeight = 250;
 
-var margin = {top: 300, right: 100, bottom: 100, left: 10},
-    width = 960 - margin.left - margin.right,
-    height = 2000 - margin.top - margin.bottom;
+var margin = {top: 30, right: 10, bottom: 30, left: 10},
+    width = initialWidth - margin.left - margin.right,
+    height = initialHeight - margin.top - margin.bottom;
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
-		//.attr("viewBox","0 0 960 500")
-  	//.attr("preserveAspectRatio", "xMidYMid")
+		.attr("viewBox","0 0 960 250")
+  	.attr("preserveAspectRatio", "xMidYMid")
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
@@ -68,8 +73,8 @@ var defs = svg.append("defs");
 
 var filter = defs.append("filter")
     .attr("id", "glow")
-		.attr("height", height)
-		.attr("width", width)
+		.attr("height", initialHeight)
+		.attr("width", initialWidth)
 		.attr("filterUnits", "userSpaceOnUse");
 
 var blur = filter.append("feGaussianBlur")
@@ -93,33 +98,20 @@ var mindate = parseYear(d3.min(jobhistory.children, function(d) {
 }));
 
 var today = new Date();
-var maxdate = today.getYear() - 100 + 2001;
-var oncemore = parseYear(maxdate.toString());
+var maxdate = parseYear(today.getYear() - 100 + 2001);
 
 var xScale = d3.scaleTime()
-    .domain([mindate, oncemore]) //today
+    .domain([mindate, maxdate]) //today
     .range([margin.left, width - margin.right * 2]);
 
 svg.append("g")
     .attr("class", "axis")
-		.attr("color", "grey")
+    .attr("transform", "translate(" + 0 + "," + height + ")")
     .call(d3.axisBottom(xScale)
 					.ticks(d3.timeYear.every(1))
           .tickFormat(d3.timeFormat("%Y")));
 
-// Insert Important Singular Dates/Milestones
-/*svg.selectAll("startDate")
-   .data(jobhistory.children)
-   .enter()
-   .append("rect")
-	 .attr("x", function(d) {
-			return xScale(parseDate(d.startDate));
-		})
-   .attr("y", function(d,i) {
-		return (i + 1) * -21;
-	 	})
-	 .attr("width", 5)
-   .attr("height", 5);*/
+var magicNumber = 21;
 
 // Date Ranges
 var line = svg.selectAll("connectors")
@@ -131,43 +123,60 @@ var line = svg.selectAll("connectors")
 			return xScale(parseDate(d.startDate));
 		 })
 		.attr("x2", function(d) {
-			if(d.endDate === 'present') {
-				return xScale(today);
-			} else {
-				return xScale(parseDate(d.endDate));
-			}
+			return xScale(parseDate(d.startDate));
 		 })
 		.attr("y1", function(d,i) {
-			return (i + 1) * -21;
+			return height + (i + 1) * -magicNumber;
 	 	})
 		.attr("y2", function(d,i) {
-			return (i + 1) * -21;
+			return height + (i + 1) * -magicNumber;
 	 	})
-    .attr("transform", "translate(0,0)")
     .style("stroke-width", 8)
-    .style("stroke", function(d, i) {
-			return colors[i];
-		})
+    .style("stroke", function(d, i) { return d.color })
+
     .style("fill", "none")
 		.style("stroke-linecap", "round")
 		.style("filter", "url(#glow)")
-		.on("mouseover", function(d){
+		.on("click", function(d){
+      d3.selectAll("line").style("filter", "url(#glow)");
 			d3.select(this).style("filter", "none");
-			/*tip.style("display", "block")
+			tip.style("display", "block")
 				 .html(function() {
-					var job;
-				job = '<div class="job">' +
-						'<div class="job-logo"><img src="' + d.logo + '" alt="' + d.job + '" /></div>' +
+					 return '<div class="job">' +
+						'<div class="job-logo"><img class="logo" src="' + d.logo + '" alt="' + d.job + '" /></div>' +
 						'<div class="job-info">' +
 						'<span class="job-title">' + d.job + '</span>' +
 						'<p class="job-desc">' + d.description + '</p>' +
 						'</div>' +
 					'</div>';
-
-				return job;
-				 });*/
+		  });
 		})
-		.on("mouseout", function(d) {
-			d3.select(this).style("filter", "url(#glow)");
-			//tip.style("display", "none");
-		});
+    .transition()
+      .duration(2000)
+      .attr("x2", function(d) {
+        if(d.endDate === 'present') {
+          return xScale(today);
+        } else {
+          return xScale(parseDate(d.endDate));
+        }
+      });
+
+    // Insert Important Singular Dates/Milestones
+    /*svg.selectAll("startDate")
+       .data(jobhistory.children)
+       .enter()
+       .append("rect")
+    	 .attr("x", function(d) {
+    			return xScale(parseDate(d.startDate));
+    		})
+       .attr("y", function(d,i) {
+    		return (i + 1) * -21;
+    	 	})
+    	 .attr("width", 5)
+       .attr("height", 5);*/
+
+
+
+        /*line.attr("stroke-dasharray", totalLength + " " + totalLength)
+             .attr("stroke-dashoffset", totalLength)
+        */

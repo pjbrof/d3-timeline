@@ -24,5 +24,9 @@
   "homepage": "https://github.com/pjbrof/d3-timeline#readme",
   "dependencies": {
     "d3": "^4.9.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.18.12",
+    "http-server": "^0.10.0"
   }
 }

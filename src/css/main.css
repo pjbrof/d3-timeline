@@ -1,0 +1,71 @@
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #d7d7d7;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+	fill: #777;
+}
+
+.segment {
+	stroke: #000;
+	cursor: pointer;
+}
+
+.job {
+	font-family: inherit;
+	float: left;
+	color: #333;
+	line-height: 1.2;
+	padding: 15px;
+	display: block;
+	width: 100%;
+}
+
+.job-logo {
+	float: left;
+	width: 20%;
+  max-height: 120px;
+}
+
+img {
+	vertical-align: middle;
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+.job-info {
+    float: left;
+    width: 80%;
+}
+
+.job-title {
+    display: block;
+    padding: 15px 15px 0;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.job-desc {
+    padding: 15px;
+    margin: 0;
+}
+
+.job-desc:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.tooltip {
+    display: block;
+    width: 100%;
+    transition: 1s all ease-in-out;
+}
