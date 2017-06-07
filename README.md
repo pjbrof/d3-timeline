@@ -1,5 +1,8 @@
 # d3-timeline
-d3v4 Timeline
+
+Simple d3v4 Timeline
+
+![alt text][logo]
 
 [logo]: https://github.com/pjbrof/d3-timeline/blob/master/img/d3-timeline.png "d3 Timeline Demo"
 
