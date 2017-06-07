@@ -1,3 +1,27 @@
+h1 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  text-align: center;
+}
+
+h1 a {
+  text-decoration: none;
+  color: #333;
+}
+
+.d3timeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* d3 Timeline */
+
+svg {
+  flex: none;
+  max-width: 100%;
+}
+
 .axis text {
   font: 10px sans-serif;
 }
@@ -16,6 +40,14 @@
 .segment {
 	stroke: #000;
 	cursor: pointer;
+}
+
+/* Tooltip */
+
+.tooltip {
+    margin-top: 60px;
+    width: 100%;
+    transition: 1s all ease-in-out;
 }
 
 .job {
@@ -62,10 +94,4 @@ img {
     content: "";
     display: table;
     clear: both;
-}
-
-.tooltip {
-    display: block;
-    width: 100%;
-    transition: 1s all ease-in-out;
 }

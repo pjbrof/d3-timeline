@@ -1,10 +1,10 @@
 // JSON structure TODO - accept xlxs/csv
-var jobhistory = {
+var timeline = {
 	"timeline": "one",
 	"children": [
 		{
 			"job": "Brophy Analytics",
-			"description": "I started Brophy Analytics LLC during my senior year of college when I was frequently being asked to help friends and family with websites. I currently still own and opporate the company in my spare time.",
+			"description": "I started Brophy Analytics LLC during my senior year of college when I was frequently being asked to help friends and family with websites. I currently own and operate the company in my spare time.",
 			"logo": "http://brophyanalytics.com/images/logo.png",
       "color": "#000000",
 			"startDate": "2012-08",
@@ -12,6 +12,8 @@ var jobhistory = {
 		},
 		{
 			"job": "University of Dayton",
+			"logo": "",
+			"description": "",
       "color": "#D52728",
 			"startDate": "2010-08",
 			"endDate": "2015-06"
@@ -19,19 +21,22 @@ var jobhistory = {
 		{
 			"job": "i4a",
 			"logo": "http://patrickbrophy.info/img/portfolio/i4a.png",
+			"description": "",
       "color": "#6699CC",
 			"startDate": "2012-05",
 			"endDate": "2015-06"
 		},
 		{
 			"job": "Mountain Gap Solutions",
-			"logo": "http://patrickbrophy.info/img/portfolio/jjilllogo.png",
+			"logo": "http://patrickbrophy.info/img/portfolio/mgs.png",
+			"description": "",
       "color": "#325664",
 			"startDate": "2015-01",
 			"endDate": "2015-06"
 		},
 		{
 			"job": "J.Jill",
+			"description": "",
 			"logo": "http://patrickbrophy.info/img/portfolio/jjilllogo.png",
       "color": "#8E8E8E",
 			"startDate": "2015-06",
@@ -47,6 +52,8 @@ var jobhistory = {
 		},
 		{
 			"job": "Biogen",
+			"logo": "",
+			"description": "",
       "color": "#6A9F54",
 			"startDate": "2016-08",
 			"endDate": "present"
@@ -61,7 +68,7 @@ var margin = {top: 30, right: 10, bottom: 30, left: 10},
     width = initialWidth - margin.left - margin.right,
     height = initialHeight - margin.top - margin.bottom;
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".d3timeline").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
 		.attr("viewBox","0 0 960 250")
@@ -87,13 +94,11 @@ var feMerge = filter.append("feMerge");
 	feMerge.append("feMergeNode")
 		.attr("in", "SourceGraphic");
 
-var tip = d3.select('body').append('div')
-        .attr('class', 'tooltip')
-        .style('position', 'absolute');
+var tip = d3.select('.tooltip');
 
 var parseDate = d3.timeParse("%Y-%m");
 var parseYear = d3.timeParse("%Y");
-var mindate = parseYear(d3.min(jobhistory.children, function(d) {
+var mindate = parseYear(d3.min(timeline.children, function(d) {
 	return d.startDate.slice(0,4); // d.startDate
 }));
 
@@ -115,7 +120,7 @@ var magicNumber = 21;
 
 // Date Ranges
 var line = svg.selectAll("connectors")
-		.data(jobhistory.children)
+		.data(timeline.children)
 		.enter()
 		.append("line")
 		.attr("class", "segment")
@@ -163,7 +168,7 @@ var line = svg.selectAll("connectors")
 
     // Insert Important Singular Dates/Milestones
     /*svg.selectAll("startDate")
-       .data(jobhistory.children)
+       .data(timeline.children)
        .enter()
        .append("rect")
     	 .attr("x", function(d) {
