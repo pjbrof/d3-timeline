@@ -1,7 +1,7 @@
 # d3-timeline
 d3v4 Timeline
 
-[logo]: https://github.com/pjbrof/d3-timeline/img/d3-timeline.png "d3 Timeline Demo"
+[logo]: https://github.com/pjbrof/d3-timeline/blob/master/img/d3-timeline.png "d3 Timeline Demo"
 
 I built this timeline to display my work history which has been an overlapping mess making my resume dates look practically incomprehensible.
 
