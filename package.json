@@ -1,9 +1,10 @@
 {
   "name": "d3-timeline",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "d3js timeline",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,11 +24,10 @@
   },
   "homepage": "https://github.com/pjbrof/d3-timeline#readme",
   "dependencies": {
-    "d3": "^4.9.1"
+    "d3": "^5.5.0"
   },
   "devDependencies": {
     "browser-sync": "^2.18.12",
-    "gulp": "^3.9.1",
-    "http-server": "^0.10.0"
+    "express": "^4.16.3"
   }
 }

@@ -3,57 +3,43 @@ var timeline = {
 	"timeline": "one",
 	"children": [
 		{
-			"job": "Brophy Analytics",
-			"description": "I started Brophy Analytics LLC during my senior year of college when I was frequently being asked to help friends and family with websites. I currently own and operate the company in my spare time.",
-			"logo": "http://brophyanalytics.com/images/logo.png",
+			"event": "Event 1",
       "color": "#000000",
 			"startDate": "2012-08",
 			"endDate": "present"
 		},
 		{
-			"job": "University of Dayton",
-			"logo": "",
-			"description": "",
+			"event": "Event 2",
       "color": "#D52728",
 			"startDate": "2010-08",
 			"endDate": "2015-06"
 		},
 		{
-			"job": "i4a",
-			"logo": "http://patrickbrophy.info/img/portfolio/i4a.png",
-			"description": "",
+			"event": "Event 3",
       "color": "#6699CC",
 			"startDate": "2012-05",
 			"endDate": "2015-06"
 		},
 		{
-			"job": "Mountain Gap Solutions",
-			"logo": "http://patrickbrophy.info/img/portfolio/mgs.png",
-			"description": "",
+			"event": "Event 4",
       "color": "#325664",
 			"startDate": "2015-01",
 			"endDate": "2015-06"
 		},
 		{
-			"job": "J.Jill",
-			"description": "",
-			"logo": "http://patrickbrophy.info/img/portfolio/jjilllogo.png",
+			"event": "Event 5",
       "color": "#8E8E8E",
 			"startDate": "2015-06",
 			"endDate": "2015-09"
 		},
 		{
-			"job": "John Hancock",
-			"description": "From working on the Boston Marathon to the full site redesign I've been busy as John Hancock's lead developer",
-			"logo": "https://s3-us-west-2.amazonaws.com/s.cdpn.io/358807/jh-logo-lg.jpg",
+			"event": "Event 6",
       "color": "#063E68",
 			"startDate": "2015-08",
 			"endDate": "present"
 		},
 		{
-			"job": "Biogen",
-			"logo": "",
-			"description": "",
+			"event": "Event 7",
       "color": "#6A9F54",
 			"startDate": "2016-08",
 			"endDate": "present"
@@ -145,16 +131,6 @@ var line = svg.selectAll("connectors")
 		.on("click", function(d){
       d3.selectAll("line").style("filter", "url(#glow)");
 			d3.select(this).style("filter", "none");
-			tip.style("display", "block")
-				 .html(function() {
-					 return '<div class="job">' +
-						'<div class="job-logo"><img class="logo" src="' + d.logo + '" alt="' + d.job + '" /></div>' +
-						'<div class="job-info">' +
-						'<span class="job-title">' + d.job + '</span>' +
-						'<p class="job-desc">' + d.description + '</p>' +
-						'</div>' +
-					'</div>';
-		  });
 		})
     .transition()
       .duration(2000)
