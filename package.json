@@ -27,7 +27,7 @@
     "d3": "^5.5.0"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.12",
+    "browser-sync": "^2.26.3",
     "express": "^4.16.3"
   }
 }
